@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_order_form_inherited">
+            <field name="name">Sale Order Form View Inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                    <field name="manager_id"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                    <field name="state_confirm"  widget="statusbar" clickable="True" string=" "/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

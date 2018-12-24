@@ -1,71 +1,67 @@
 <odoo>
-  <data>
+    <data>
 
-    <record model="ir.ui.view" id="product_category_form_inherit">
-      <field name="name">product_category form</field>
-      <field name="model">product.category</field>
-      <field name="inherit_id" ref="product.product_category_form_view"/>
-      <field name="arch" type="xml">
-        <xpath expr="//group[@name='first']" position="after">
-          <group name="Product Manager" col="2">
-            <field name="product_manager_id" class="oe_inline"/>
-          </group>
-        </xpath>
+        <record model="ir.ui.view" id="product_category_form_inherit">
+            <field name="name">product_category form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='first']" position="after">
+                    <group name="Product Manager" col="2">
+                        <field name="manager_id" class="oe_inline"/>
+                    </group>
+                </xpath>
 
-      </field>
-    </record>
-
-
-
-    <record model="ir.ui.view" id="purchase_order_form_inherit">
-      <field name="name">purchase_order form</field>
-      <field name="model">purchase.order</field>
-      <field name="inherit_id" ref="purchase.purchase_order_form"/>
-      <field name="arch" type="xml">
-
-        <xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="after">
-           <field name="product_manager_id"/>
-            <field name="state_confirm"  widget="statusbar" clickable="True" string=" "/>
-                         <field name="current_user" invisible="1"/>
-                         <field name="state" invisible="1"/>
+            </field>
+        </record>
 
 
-
-        </xpath>
-
-        <xpath expr="//field[@name='amount_untaxed']" position="before">
-
-         <field name="total_state" invisible="1"/>
-
-        </xpath>
-          <xpath expr="//field[@name='state']" position="replace">
-
-         <field name="state" widget="statusbar" statusbar_visible="draft,sent,w,purchase" />
-
-        </xpath>
-
-         <xpath expr="//button[1]" position="attributes">
-                        <attribute name="states">draft,w</attribute>
-
-        </xpath>
-          <xpath expr="//button[3]" position="attributes">
-                        <attribute name="states">draft,w</attribute>
-
-        </xpath>
-
-          <xpath expr="//button[11]" position="attributes">
-                        <attribute name="states">draft,to approve,sent,purchase,w</attribute>
-
-        </xpath>
+        <record model="ir.ui.view" id="view_purchase_order_form_inherited">
+            <field name="name">Purchase Order Form View Inherited</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                    <field name="product_manager_id"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                    <field name="state_confirm"  widget="statusbar" clickable="True" string=" "/>
+                </xpath>
+            </field>
+        </record>
 
 
+        <!--<record model="ir.ui.view" id="purchase_order_form_inherit">-->
+            <!--<field name="name">purchase_order form</field>-->
+            <!--<field name="model">purchase.order</field>-->
+            <!--<field name="inherit_id" ref="purchase.purchase_order_form"/>-->
+            <!--<field name="arch" type="xml">-->
 
+                <!--<xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="after">-->
+                    <!--<field name="product_manager_id"/>-->
+                    <!--<field name="state_confirm" widget="statusbar" clickable="True" string=" "/>-->
+                <!--</xpath>-->
 
+                <!--<xpath expr="//field[@name='amount_untaxed']" position="before">-->
+                    <!--<field name="total_state" invisible="1"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='state']" position="replace">-->
+                    <!--<field name="state" widget="statusbar" statusbar_visible="draft,sent,w,purchase"/>-->
 
+                <!--</xpath>-->
+                <!--<xpath expr="//button[1]" position="attributes">-->
+                    <!--<attribute name="states">draft,w</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//button[3]" position="attributes">-->
+                    <!--<attribute name="states">draft,w</attribute>-->
+                <!--</xpath>-->
 
+                <!--<xpath expr="//button[11]" position="attributes">-->
+                    <!--<attribute name="states">draft,to approve,sent,purchase,w</attribute>-->
+                <!--</xpath>-->
 
-      </field>
-    </record>
+            <!--</field>-->
+        <!--</record>-->
 
-  </data>
+    </data>
 </odoo>
