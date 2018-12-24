@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    manager_id = fields.Many2one('res.users', string='Product Manager', readonly=True)
+    manager_id = fields.Many2one('res.users', string='Product Manager')
     state_confirm = fields.Selection([
         ('confirm', 'Confirm')], store=True)
 

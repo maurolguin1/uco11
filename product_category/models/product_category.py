@@ -16,7 +16,7 @@ class PurchaseOrderLine(models.Model):
     state_confirm = fields.Selection([
         ('c', 'Confirm')], store=True)
 
-    product_manager_id = fields.Many2one('res.users', string='Product Manager', readonly=True)
+    product_manager_id = fields.Many2one('res.users', string='Product Manager')
 
     @api.multi
     @api.onchange('product_id')
