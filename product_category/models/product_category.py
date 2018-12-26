@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 class ProductCategory(models.Model):
     _inherit = 'product.category'
 
-    manager_id = fields.Many2one('res.users', string='Product Manager')
+    managers_id = fields.Many2many('res.users', string='Product Managers')
 
 
 class PurchaseOrderLine(models.Model):
@@ -16,7 +16,14 @@ class PurchaseOrderLine(models.Model):
     state_confirm = fields.Selection([
         ('c', 'Confirm')], store=True)
 
-    product_manager_id = fields.Many2one('res.users', string='Product Manager', related='product_id.categ_id.manager_id', store=True, readonly=True)
+    @api.depends('product_id')
+    def _get_prodcut_managers(self):
+        for rec in self:
+            if rec.product_id:
+                if rec.product_id.categ_id.managers_id:
+                    rec.managers_id = rec.product_id.categ_id.managers_id
+
+    managers_id = fields.Many2many('res.users', compute="_get_prodcut_managers", string='Product Managers', store=True)
 
 
     @api.multi
@@ -26,8 +33,6 @@ class PurchaseOrderLine(models.Model):
             if line.product_id:
                 if self.env.user.has_group('base.group_system'):
                     pass
-                elif line.product_manager_id:
-                    if line.product_manager_id.id != self.env.user.id:
+                elif line.managers_id:
+                    if self.env.user.id not in line.managers_id.ids:
                         raise ValidationError("PM Should Confirm")
-
-

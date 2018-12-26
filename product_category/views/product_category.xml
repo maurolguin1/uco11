@@ -7,8 +7,8 @@
             <field name="inherit_id" ref="product.product_category_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='first']" position="after">
-                    <group name="Product Manager" col="2">
-                        <field name="manager_id" class="oe_inline"/>
+                    <group name="Product Managers" col="2">
+                        <field name="managers_id" class="oe_inline" widget="many2many_tags"/>
                     </group>
                 </xpath>
 
@@ -22,7 +22,7 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
-                    <field name="product_manager_id"/>
+                    <field name="managers_id" widget="many2many_tags"/>
                 </xpath>
                 <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
                     <field name="state_confirm"  widget="statusbar" clickable="True" string=" "/>
