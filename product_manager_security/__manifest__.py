@@ -10,10 +10,9 @@
     'website': "http://www.it-syscorp.com",
     'category': 'Sales',
     'version': '0.1',
-    'depends': ['product_category','sale'],
+    'depends': ['product_category'],
     'data': [
         'security/sale_order_security.xml',
-        'security/ir.model.access.csv',
         'views/sale_order.xml',
     ],
 }

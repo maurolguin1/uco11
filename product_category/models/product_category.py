@@ -16,15 +16,8 @@ class PurchaseOrderLine(models.Model):
     state_confirm = fields.Selection([
         ('c', 'Confirm')], store=True)
 
-    product_manager_id = fields.Many2one('res.users', string='Product Manager')
+    product_manager_id = fields.Many2one('res.users', string='Product Manager', related='product_id.categ_id.manager_id', store=True, readonly=True)
 
-    @api.multi
-    @api.onchange('product_id')
-    def onchange_product_id(self):
-        res = super(PurchaseOrderLine, self).onchange_product_id()
-        if self.product_id:
-            self.product_manager_id = self.product_id.categ_id.manager_id.id
-        return res
 
     @api.multi
     @api.onchange('state_confirm')
@@ -33,83 +26,8 @@ class PurchaseOrderLine(models.Model):
             if line.product_id:
                 if self.env.user.has_group('base.group_system'):
                     pass
-                elif line.product_id.categ_id.manager_id:
-                    if line.product_manager_id:
-                        if line.product_manager_id.id != self.env.user.id:
-                            raise ValidationError("PM Should Confirm")
-                        else:
-                            print("CONFIRMED")
-                elif not line.product_id.categ_id.manager_id:
-                    print("not product manager for product")
-                    if line.product_manager_id:
-                        print('product manager for line')
-                        if line.product_manager_id.id != self.env.user.id:
-                            raise ValidationError("PM Should Confirm")
-                        else:
-                            print("CONFIRMED")
+                elif line.product_manager_id:
+                    if line.product_manager_id.id != self.env.user.id:
+                        raise ValidationError("PM Should Confirm")
 
 
-# class PurchaseOrder(models.Model):
-#     _inherit = 'purchase.order'
-
-    # total_state = fields.Char('Total State', compute='calc_state', store=True)
-    #
-    # state = fields.Selection([
-    #     ('draft', 'RFQ'),
-    #     ('sent', 'RFQ Sent'),
-    #     ('to approve', 'To Approve'),
-    #     ('w', 'Waiting PM Confirmation'),
-    #     ('purchase', 'Purchase Order'),
-    #     ('done', 'Locked'),
-    #     ('cancel', 'Cancelled')
-    # ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange',
-    #     compute='change_state', store=True)
-
-    # @api.multi
-    # @api.constrains('order_line')
-    # def _check_manager(self):
-    #     print("onchange po")
-    #     for rec in self:
-    #         for line in rec.order_line:
-    #             print(line)
-    #             if line.product_id:
-    #                 if self.env.user.has_group('base.group_system'):
-    #                     pass
-    #                 elif line.product_id.categ_id.manager_id:
-    #                     print("product manager for product ")
-    #                     if line.product_manager_id:
-    #                         print('product manager for line')
-    #                         if line.product_manager_id.id != self.env.user.id:
-    #                             raise ValidationError("PM Should Confirm")
-    #                 elif not line.product_id.categ_id.manager_id:
-    #                     print("not product manager for product")
-    #                     if line.product_manager_id:
-    #                         print('product manager for line')
-    #                         if line.product_manager_id.id != self.env.user.id:
-    #                             raise ValidationError("PM Should Confirm")
-
-    # @api.depends('total_state')
-    # def change_state(self):
-    #     for line in self:
-    #         if line.total_state == ' ' or line.total_state == 'Confirm Complate':
-    #             line.state = 'draft'
-    #         elif line.total_state == 'Waiting Confirm':
-    #             line.state = 'w'
-
-    # @api.depends('order_line.state')
-    # def calc_state(self):
-    #     list = []
-    #     for line in self:
-    #         if line.order_line:
-    #             for rec in line.order_line:
-    #                 list.append(rec.state_confirm)
-    #
-    #         if list.count(False) > 0:
-    #             line.total_state = 'Waiting Confirm'
-    #
-    #         elif list.count(False) == 0 and list.count('c') == 0:
-    #
-    #             line.total_state = ' '
-    #         else:
-    #
-    #             line.total_state = 'Confirm Complate'
