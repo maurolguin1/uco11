@@ -9,7 +9,7 @@
         confirm product by product manager
     """,
 
-    'author': "ITsys-Corportion Eman ahmed",
+    'author': "ITSYS BY Eman ahmed",
     'website': "http://www.it-syscorp.com",
 
     'category': 'Sale',
