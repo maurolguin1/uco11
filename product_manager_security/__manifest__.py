@@ -6,7 +6,7 @@
 
     'description': """Product Manager Security""",
 
-    'author': "ITSYS By Shimaa",
+    'author': "ITSYS By ALShimaa",
     'website': "http://www.it-syscorp.com",
     'category': 'Sales',
     'version': '0.1',
