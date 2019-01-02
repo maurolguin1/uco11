@@ -1,11 +1,38 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from odoo.exceptions import AccessError, MissingError, ValidationError, UserError
+
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    @api.model
+    def create(self, vals):
+        if 'order_line' not in vals:
+            raise UserError("Please add lines in Quotation")
+        res = super(SaleOrder, self.sudo()).create(vals)
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super(SaleOrder, self.sudo()).write(vals)
+        return res
+
 
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
+
+    @api.model
+    def create(self, vals):
+        res = super(SaleOrderLine, self.sudo()).create(vals)
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super(SaleOrderLine, self.sudo()).write(vals)
+        return res
 
     @api.depends("product_id")
     def _get_prodcut_managers(self):
@@ -29,3 +56,5 @@ class SaleOrderLine(models.Model):
                 elif line.managers_id:
                     if self.env.user.id not in line.managers_id.ids:
                         raise ValidationError("PM Should Confirm")
+
+
