@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_order_form_suppier_header" model="ir.ui.view">
+            <field name="name">sale.order.suppier</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_shipping_id']"
+                       position="after">
+                    <field name="supplier_id" options="{'no_create': True}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_order_form_create_po_header" model="ir.ui.view">
+            <field name="name">sale.order.create_po</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='product_id']"
+                       position="after">
+                    <field name="create_po"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="after">
+                    <field name="create_po"/>
+                </xpath>
+                 <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="after">
+                    <field name="create_po"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>
