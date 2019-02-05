@@ -19,11 +19,50 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self.sudo()).write(vals)
         return res
 
+    total_state = fields.Char('Total State', compute='calc_state', store=True)
+
+    state = fields.Selection([
+        ('draft', 'Quotation'),
+        ('sent', 'Quotation Sent'),
+        ('sale', 'Sales Order'),
+        ('confirmed_line', 'Confirmed'),
+        ('done', 'Locked'),
+        ('cancel', 'Cancelled'),
+    ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
+
+    @api.constrains('total_state')
+    def change_state(self):
+        for line in self:
+            if line.total_state == 'Confirm Complate':
+                line.state = 'confirmed_line'
+            elif line.total_state == 'Waiting Confirm' or line.total_state == ' ':
+                line.state = 'sale'
+
+
+
+    @api.depends('order_line.state_confirm')
+    def calc_state(self):
+        list = []
+        for line in self:
+            if line.order_line:
+                for rec in line.order_line:
+                    list.append(rec.state_confirm)
+
+            print (list)
+
+            if list.count(False) > 0:
+                line.total_state = 'Waiting Confirm'
+
+            elif list.count(False) == 0 and list.count('confirm') == 0:
+
+                line.total_state = ' '
+            else:
+
+                line.total_state = 'Confirm Complate'
 
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
-
     @api.model
     def create(self, vals):
         res = super(SaleOrderLine, self.sudo()).create(vals)
@@ -56,5 +95,13 @@ class SaleOrderLine(models.Model):
                 elif line.managers_id:
                     if self.env.user.id not in line.managers_id.ids:
                         raise ValidationError("PM Should Confirm")
+
+
+
+
+
+
+
+
 
 
