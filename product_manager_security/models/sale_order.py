@@ -36,7 +36,7 @@ class SaleOrder(models.Model):
             if line.total_state == 'Confirm Complate':
                 line.state = 'confirmed_line'
             elif line.total_state == 'Waiting Confirm' or line.total_state == ' ':
-                line.state = 'sale'
+                line.state = 'draft'
 
 
 
