@@ -7,6 +7,8 @@ from odoo.exceptions import AccessError, MissingError, ValidationError, UserErro
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+
+
     @api.model
     def create(self, vals):
         if 'order_line' not in vals:
