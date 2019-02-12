@@ -2,4 +2,4 @@
 
 
 from . import sale_order_report_xsl
-#from . import  sale_order
+from . import  sale_order

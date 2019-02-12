@@ -2,7 +2,7 @@ from odoo.addons.report_xlsx.report.report_xlsx import ReportXlsxAbstract
 from datetime import date, datetime, time, timedelta
 from pytz import timezone
 class BranchReasonProfitDataXls(ReportXlsxAbstract):
-    _name = 'report.sale_report_pdf_xsl.sale_order_report_xls'
+    _name = 'report.report_pdf_xsl.sale_order_report_xls'
     _inherit = 'report.report_xlsx.abstract'
 
     def current_datetime(self):
@@ -119,8 +119,8 @@ class BranchReasonProfitDataXls(ReportXlsxAbstract):
                 worksheet.write(row, col + 1, line.tax_id.name, header3_format)
                 worksheet.write(row, col + 2, line.price_unit, header3_format)
                 worksheet.write(row, col + 3,line.product_uom_qty , header3_format)
-                # worksheet.write(row, col + 4, line.x_studio_field_hqZ0T, header3_format)
-                worksheet.write(row, col + 4,line.name , header3_format)
+                worksheet.write(row, col + 4, line.x_studio_field_hqZ0T, header3_format)
+                worksheet.write(row, col + 5,line.name , header3_format)
 
                 number += 1
                 row += 1

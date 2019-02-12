@@ -4,8 +4,8 @@
                 model="sale.order"
                 string="Quotation / order(xlsx)"
                 report_type="xlsx"
-                name="sale_report_pdf_xsl.sale_order_report_xls"
-                file="sale_report_pdf_xsl.sale_order_report_xls"
+                name="report_pdf_xsl.sale_order_report_xls"
+                file="report_pdf_xsl.sale_order_report_xls"
                 attachment_use="False"/>
     </data>
 </openerp>

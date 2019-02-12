@@ -19,13 +19,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','report_xlsx'],
+    'depends': ['base','sale','report_xlsx',],
 
     # always loaded
     'data': [
         'report/report.xml',
         'report/report_saleorder.xml',
-        #'views/sale_order.xml',
+        'views/sale_order.xml',
     ],
     # only loaded in demonstration mode
 
