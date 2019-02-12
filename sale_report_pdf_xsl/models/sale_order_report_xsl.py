@@ -2,7 +2,7 @@ from odoo.addons.report_xlsx.report.report_xlsx import ReportXlsxAbstract
 from datetime import date, datetime, time, timedelta
 from pytz import timezone
 class BranchReasonProfitDataXls(ReportXlsxAbstract):
-    _name = 'report.report_pdf_xsl.sale_order_report_xls'
+    _name = 'report.sale_report_pdf_xsl.sale_order_report_xls'
     _inherit = 'report.report_xlsx.abstract'
 
     def current_datetime(self):
