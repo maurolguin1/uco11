@@ -25,7 +25,7 @@
     'data': [
         'report/report.xml',
         'report/report_saleorder.xml',
-        'views/sale_order.xml',
+        #'views/sale_order.xml',
     ],
     # only loaded in demonstration mode
 
