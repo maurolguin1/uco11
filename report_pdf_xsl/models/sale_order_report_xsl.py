@@ -103,11 +103,11 @@ class BranchReasonProfitDataXls(ReportXlsxAbstract):
             worksheet.write('C3', 'Customer', header2_format)
             worksheet.write('C4',lin.partner_id.name, header3_format)
             worksheet.write('A7', 'Amount', header2_format)
-            worksheet.write('B7', 'Taxes', header2_format)
-            worksheet.write('C7', 'Unit Price', header2_format)
-            worksheet.write('D7', 'Quantity', header2_format)
-            worksheet.write('E7', 'Delivery Note', header2_format)
-            worksheet.write('F7', 'Description', header2_format)
+            # worksheet.write('B7', 'Taxes', header2_format)
+            worksheet.write('B7', 'Unit Price', header2_format)
+            worksheet.write('C7', 'Quantity', header2_format)
+            worksheet.write('D7', 'Delivery Note', header2_format)
+            worksheet.write('E7', 'Description', header2_format)
 
 
 
@@ -115,12 +115,14 @@ class BranchReasonProfitDataXls(ReportXlsxAbstract):
             row = 7
             col = 0
             for line in lin.order_line:
+                if line.x_studio_field_hqZ0T==False:
+                    line.x_studio_field_hqZ0T=''
                 worksheet.write(row, col, line.price_subtotal, header3_format)
-                worksheet.write(row, col + 1, line.tax_id.name, header3_format)
-                worksheet.write(row, col + 2, line.price_unit, header3_format)
-                worksheet.write(row, col + 3,line.product_uom_qty , header3_format)
-                worksheet.write(row, col + 4, line.x_studio_field_hqZ0T, header3_format)
-                worksheet.write(row, col + 5,line.name , header3_format)
+                # worksheet.write(row, col + 1, line.tax_id.name, header3_format)
+                worksheet.write(row, col + 1, line.price_unit, header3_format)
+                worksheet.write(row, col + 2,line.product_uom_qty , header3_format)
+                worksheet.write(row, col + 3, line.x_studio_field_hqZ0T, header3_format)
+                worksheet.write(row, col + 4,line.name , header3_format)
 
                 number += 1
                 row += 1
