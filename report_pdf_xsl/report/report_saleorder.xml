@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t/div/h2" position="replace">
+             <h2>
+                <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+                    <span t-if="doc.state not in ['draft','sent','confirmed_line']">Order # </span>
+                    <span t-if="doc.state in ['draft','sent','confirmed_line']">Quotation # </span>
+                </t>
+                <t t-if="env.context.get('proforma', False) or is_pro_forma">
+                    <span>Pro-Forma Invoice # </span>
+                </t>
+                <span t-field="doc.name"/>
+            </h2>
+        </xpath>
         <xpath expr="//t/table" position="replace">
             <table class="table table-condensed">
+
                     <thead>
                         <tr>
-                            <th>Description</th>
+                            <th>Product</th>
                             <th class="text-right">Delivery Note</th>
                             <th class="text-right">Quantity</th>
                             <th class="text-right">Unit Price</th>
@@ -29,7 +42,7 @@
                             <!-- Lines associated -->
                             <t t-foreach="layout_category['lines']" t-as="l">
                                 <tr>
-                                    <td><span t-field="l.name"/></td>
+                                    <td><span t-field="l.product_id.name"/></td>
                                     <td class="text-right">
                                        <span t-field="l.x_studio_field_hqZ0T"/>
                                     </td>
@@ -74,4 +87,5 @@
         </xpath>
 
     </template>
+
 </odoo>
