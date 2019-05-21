@@ -4,10 +4,14 @@
 
         <xpath expr="//t/div/table/thead/tr/th" position="replace">
             <th><strong>Product</strong></th>
+            <th><strong>Description</strong></th>
         </xpath>
         <xpath expr="//t/div/table/tbody/tr/td" position="replace">
             <td>
-                <span t-field="line.product_id.name"/>
+                <span t-field="line.product_id"/>
+            </td>
+            <td>
+                <span t-field="line.name"/>
             </td>
         </xpath>
 

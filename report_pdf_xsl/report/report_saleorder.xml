@@ -19,6 +19,7 @@
                     <thead>
                         <tr>
                             <th>Product</th>
+                            <th>Description</th>
                             <th class="text-right">Delivery Note</th>
                             <th class="text-right">Quantity</th>
                             <th class="text-right">Unit Price</th>
@@ -42,8 +43,11 @@
                             <!-- Lines associated -->
                             <t t-foreach="layout_category['lines']" t-as="l">
                                 <tr>
-                                    <td><span t-field="l.product_id.name"/></td>
-                                    <td class="text-right">
+                                    <td><span t-field="l.product_id"/></td>
+                                    <td >
+                                       <span t-field="l.name"/>
+                                    </td>
+                                 <td class="text-right">
                                        <span t-field="l.x_studio_field_hqZ0T"/>
                                     </td>
                                     <td class="text-right">
